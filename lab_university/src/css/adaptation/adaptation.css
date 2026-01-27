@@ -1,0 +1,164 @@
+@media (max-width: 1920px) {
+    .food {
+        .food__wrapper {
+            margin-top: 80px;
+        }
+    }
+}
+
+@media (max-width: 1600px) {
+    .food {
+        .food__wrapper {
+            margin-top: 80px;
+        }
+    }
+}
+
+@media (max-width: 1280px) {
+    .food {
+        .food__wrapper {
+            display: grid;
+            margin-top: 80px;
+            grid-template-columns: repeat(3, minmax(280px, 1fr));
+            justify-content: center;
+            gap: 40px;
+        }
+    }
+}
+
+@media (max-width: 900px) {
+    header {
+        .auth {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-auto-rows: auto;
+            gap: 8px 12px;
+            justify-items: stretch;
+        }
+
+        .auth__input,
+        .auth__btn {
+            width: 100%;
+        }
+
+        .best .best__scroll {
+            animation: none;
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    header {
+        .container {
+            padding: 0 5px;
+        }
+
+        .auth {
+            .auth__input {
+                width: 140px;
+            }
+        }
+    }
+
+    nav {
+        .navigation__menu {
+            padding: 15px 0;
+
+            .nav__list {
+                justify-content: space-around;
+            }
+        }
+    }
+
+    main {
+        .aboutus__aside {
+            display: none;
+        }
+    }
+
+    .food {
+        .food__card {
+            width: 250px;
+        }
+
+        .food__wrapper {
+            grid-template-columns: repeat(auto-fit, minmax(200px, 2fr));
+            gap: 30px;
+        }
+    }
+}
+
+@media (max-width: 480px) {
+    header {
+        .header__img {
+            display: none;
+        }
+
+        .title {
+            font-size: 22px;
+        }
+
+        .auth {
+            .auth__input {
+                display: none;
+            }
+        }
+
+        .best {
+            .best__subtitle {
+                display: none;
+            }
+        }
+    }
+
+    nav {
+        .navigation__menu {
+            align-items: center;
+            padding: 15px 0;
+        }
+    }
+
+    .aboutus__aside {
+        display: none;
+    }
+}
+
+
+@media (max-width: 320px) {
+    header {
+        .header__img {
+            display: none;
+        }
+
+        .header__wrapper {
+            padding: 0;
+        }
+
+        .best {
+            min-height: calc(100vh - 140px);
+
+            .best__scroll {
+            }
+        }
+    }
+
+    nav {
+        display: none;
+    }
+
+    .auth__input {
+        display: none;
+    }
+
+    .auth {
+        gap: 6px;
+    }
+
+    .about_us .aboutus__descr {
+        width: auto;
+    }
+
+    .aboutus__aside {
+        display: none;
+    }
+}

@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/constructor.js"></script>
+</head>
+<body>
+<main class="constructor">
+    <div class="container">
+        <h2 class="title mini">Конструктор расписания сетов суши</h2>
+
+        <form id="menu-form" class="menu-form">
+            <div class="menu-form__group">
+                <label for="weekType">Тип недели</label>
+                <select id="weekType" name="weekType" class="menu-form__control">
+                    <option value="5">С пн - по пт</option>
+                    <option value="6">С пн - по сб</option>
+                    <option value="7">Ежедневно</option>
+                </select>
+            </div>
+
+            <div class="menu-form__group">
+                <label for="maxSlots">Максимум сетов в день</label>
+                <input id="maxSlots" name="maxSlots" class="menu-form__control" type="number" min="1" max="6" value="2">
+            </div>
+
+            <div class="menu-form__group">
+                <label for="lang">Язык таблицы</label>
+                <select id="lang" name="lang" class="menu-form__control">
+                    <option value="ru">Русский</option>
+                    <option value="en">English</option>
+                </select>
+            </div>
+
+            <div class="menu-form__group">
+                <label for="theme">Тема таблицы</label>
+                <select id="theme" name="theme" class="menu-form__control">
+                    <option value="ocean">Океан</option>
+                    <option value="dark">Тёмная</option>
+                </select>
+            </div>
+
+            <div class="menu-form__group menu-form__group--wide">
+                <label class="menu-form__checkbox">
+                    <input type="checkbox" id="autoNames" name="autoNames" checked>
+                    <span>Генерация рандом сетов</span>
+                </label>
+            </div>
+
+            <div class="menu-form__buttons">
+                <button type="submit" class="btn">Сгенерировать таблицу</button>
+                <button type="button" id="reset-settings" class="btn btn--small">Сбросить</button>
+            </div>
+        </form>
+
+        <div id="menu-result" class="menu-result">
+        </div>
+    </div>
+</main>
+</body>
+</html>

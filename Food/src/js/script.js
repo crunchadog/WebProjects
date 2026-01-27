@@ -238,4 +238,75 @@ document.addEventListener('DOMContentLoaded', () => {
     // fetch('../db.json')
     //     .then(data => data.json())
     //     .then(data => console.log(data))
+
+    // Slider
+
+    const sliderItem = document.querySelectorAll('.offer__slide'),
+        nextItem = document.querySelector('.offer__slider-next'),
+        prevItem = document.querySelector('.offer__slider-prev'),
+        total = document.querySelector('#total'),
+        current = document.querySelector("#current"),
+        slidesWrapper = document.querySelector('.offer__slider-wrapper'),
+        slidesField = document.querySelector('.offer__slider-inner'),
+        width = window.getComputedStyle(slidesWrapper).width;
+
+    let slideIndex = 1;
+    let offset = 0;
+
+    if (sliderItem.length < 10) {
+        total.textContent = `0${sliderItem.length}`;
+        current.textContent = `0${slideIndex}`;
+    } else {
+        total.textContent = sliderItem.length;
+        current.textContent = slideIndex;
+    }
+
+    slidesField.style.cssText = `display: flex; transition: 0.5s all; width: ${100 * sliderItem.length}%;`;
+
+    slidesWrapper.style.cssText = `overflow: hidden;`;
+    sliderItem.forEach(item => item.style.width = width);
+
+    nextItem.addEventListener('click', () => {
+        if (offset === +width.slice(0, width.length - 2) * (sliderItem.length - 1)) {
+            offset = 0;
+        } else {
+            offset += +width.slice(0, width.length - 2);
+        }
+
+        slidesField.style.transform = `translateX(-${offset}px)`;
+
+        if (slideIndex === sliderItem.length) {
+            slideIndex = 1;
+        } else {
+            slideIndex++;
+        }
+
+        if (sliderItem.length < 10) {
+            current.textContent = `0${slideIndex}`;
+        } else {
+            current.textContent = slideIndex;
+        }
+    });
+
+    prevItem.addEventListener('click', () => {
+        if (offset === 0) {
+            offset = +width.slice(0, width.length - 2) * (sliderItem.length - 1);
+        } else {
+            offset -= +width.slice(0, width.length - 2);
+        }
+
+        slidesField.style.transform = `translateX(-${offset}px)`
+
+        if (slideIndex <= 1) {
+            slideIndex = sliderItem.length;
+        }else {
+            slideIndex--;
+        }
+
+        if (sliderItem.length < 10) {
+            current.textContent = `0${slideIndex}`;
+        } else {
+            current.textContent = slideIndex;
+        }
+    })
 });

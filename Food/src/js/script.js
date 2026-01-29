@@ -31,13 +31,73 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (target && target.classList.contains('tabheader__item')) {
             tabs.forEach((item, i) => {
-                if (target == item) {
+                if (target === item) {
                     hideContent();
                     showContent(i);
                 }
             })
         }
     });
+
+    // Timer
+    const deadline = '2026-05-20';
+
+    function getZero(num) {
+        if (num >= 0 && num < 10) {
+            return `0${num}`;
+        } else {
+            return num;
+        }
+    }
+
+    function getTimeRemaining(endtime) {
+        let days, hours, minutes, seconds;
+        const now = Date.parse(endtime) - Date.parse(new Date());
+
+        if (now <= 0) {
+            days = 0;
+            hours = 0;
+            minutes = 0;
+            seconds = 0;
+        } else {
+            days = Math.floor(now / (1000 * 60 * 60 * 24));
+            hours = Math.floor(now / (1000 * 60 * 60) % 24);
+            minutes = Math.floor((now / (1000 / 60)) % 60);
+            seconds = Math.floor((now / 1000) % 60);
+        }
+
+        return {
+            'total': now,
+            'days': days,
+            'hours': hours,
+            'minutes': minutes,
+            'seconds': seconds
+        };
+    }
+
+    function setClock(selector, endtime) {
+        const timer = document.querySelector(selector),
+            days = timer.querySelector('#days'),
+            hours = timer.querySelector('#hours'),
+            minutes = timer.querySelector('#minutes'),
+            seconds = timer.querySelector('#seconds'),
+            timeInterval = setInterval(updateClock, 1000);
+
+        updateClock();
+
+        function updateClock() {
+            const t = getTimeRemaining(endtime);
+
+            days.innerHTML = getZero(t.days);
+            hours.innerHTML = getZero(t.hours);
+            minutes.innerHTML = getZero(t.minutes);
+            seconds.innerHTML = getZero(t.seconds);
+
+            if (t.total <= 0) clearInterval(timeInterval);
+        }
+    }
+
+    setClock('.timer', deadline)
 
     // Modal
     const modal = document.querySelector('.modal'),
@@ -242,7 +302,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Slider
 
     const sliderItem = document.querySelectorAll('.offer__slide'),
-        nextItem = document.querySelector('.offer__slider-next'),
+        slider = document.querySelector('.offer__slider');
+    nextItem = document.querySelector('.offer__slider-next'),
         prevItem = document.querySelector('.offer__slider-prev'),
         total = document.querySelector('#total'),
         current = document.querySelector("#current"),
@@ -266,47 +327,235 @@ document.addEventListener('DOMContentLoaded', () => {
     slidesWrapper.style.cssText = `overflow: hidden;`;
     sliderItem.forEach(item => item.style.width = width);
 
+    slider.style.position = 'relative';
+
+    const indicators = document.createElement('ol'),
+        dots = [];
+    indicators.classList.add('carousel-indicators');
+    indicators.style.cssText =
+        `
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 15;
+            display: flex;
+            justify-content: center;
+            margin-right: 15%;
+            margin-left: 15%;
+            list-style: none;
+        `;
+
+    slider.append(indicators);
+
+    for (let i = 0; i < sliderItem.length; i++) {
+        const dot = document.createElement('li');
+        dot.setAttribute('data-slide-to', i + 1);
+        dot.style.cssText =
+            `
+            box-sizing: content-box;
+            flex: 0 1 auto;
+            width: 30px;
+            height: 6px;
+            margin-right: 3px;
+            margin-left: 3px;
+            cursor: pointer;
+            background-color: #fff;
+            background-clip: padding-box;
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            opacity: .5;
+            transition: opacity .6s ease;
+        `;
+
+        if (i === 0) {
+            dot.style.opacity = 1;
+        }
+
+        indicators.appendChild(dot);
+        dots.push(dot);
+    }
+
     nextItem.addEventListener('click', () => {
-        if (offset === +width.slice(0, width.length - 2) * (sliderItem.length - 1)) {
+        if (offset === deleteNoDigits(width) * (sliderItem.length - 1)) {
             offset = 0;
         } else {
-            offset += +width.slice(0, width.length - 2);
+            offset += deleteNoDigits(width);
         }
 
         slidesField.style.transform = `translateX(-${offset}px)`;
 
-        if (slideIndex === sliderItem.length) {
+        if (slideIndex >= sliderItem.length) {
             slideIndex = 1;
         } else {
             slideIndex++;
         }
 
-        if (sliderItem.length < 10) {
-            current.textContent = `0${slideIndex}`;
-        } else {
-            current.textContent = slideIndex;
-        }
+        addZero(sliderItem, slideIndex);
+
+        dots.forEach(dot => dot.style.opacity = '0.5');
+        dots[slideIndex - 1].style.opacity = '1';
     });
 
     prevItem.addEventListener('click', () => {
         if (offset === 0) {
-            offset = +width.slice(0, width.length - 2) * (sliderItem.length - 1);
+            offset = deleteNoDigits(width) * (sliderItem.length - 1);
         } else {
-            offset -= +width.slice(0, width.length - 2);
+            offset -= deleteNoDigits(width);
         }
 
         slidesField.style.transform = `translateX(-${offset}px)`
 
         if (slideIndex <= 1) {
             slideIndex = sliderItem.length;
-        }else {
+        } else {
             slideIndex--;
         }
 
-        if (sliderItem.length < 10) {
-            current.textContent = `0${slideIndex}`;
+        addZero(sliderItem, slideIndex);
+
+        dots.forEach(dot => dot.style.opacity = '.65');
+        dots[slideIndex - 1].style.opacity = 1;
+    });
+
+    dots.forEach(dot => {
+        dot.addEventListener('click', (e) => {
+            const target = e.target;
+
+            // const slideTo = target.getAttribute('data-slide-to');
+            slideIndex = target.getAttribute('data-slide-to');
+            offset = deleteNoDigits(width) * (slideIndex - 1);
+
+            slidesField.style.transform = `translateX(-${offset}px)`;
+
+            addZero(sliderItem, slideIndex);
+
+            dots.forEach(dot => dot.style.opacity = '.65');
+            dots[slideIndex - 1].style.opacity = 1;
+        })
+    });
+
+    function deleteNoDigits(item) {
+        return +item.replace(/\D/ig, '');
+    }
+
+    function addZero(item, val) {
+        if (item.length < 10) {
+            current.textContent = `0${val}`;
         } else {
-            current.textContent = slideIndex;
+            current.textContent = val;
         }
-    })
+    }
+
+    // Calc
+
+    const result = document.querySelector('.calculating__result span');
+    let gender, height, weight, age, ratio;
+
+    if (localStorage.getItem('gender')) {
+        gender = localStorage.getItem('gender') ?? 'female';
+    } else {
+        localStorage.setItem('gender', 'female');
+    }
+
+    if (localStorage.getItem('ratio')) {
+        ratio = localStorage.getItem('ratio');
+    } else {
+        ratio = 1.375
+        localStorage.setItem('ratio', '1.375');
+    }
+
+    function initLocalSettings(selector, activeClass) {
+        const elements = document.querySelectorAll(selector);
+
+        elements.forEach(elem => {
+            elem.classList.remove(activeClass)
+
+        if (elem.getAttribute('id') === localStorage.getItem('gender')) {
+            elem.classList.add(activeClass);
+        }
+
+        if (elem.getAttribute('data-ratio') === localStorage.getItem('ratio')) {
+            elem.classList.add(activeClass);
+        }
+        });
+    }
+
+    initLocalSettings('#gender div', 'calculating__choose-item_active');
+    initLocalSettings('.calculating__choose_big div', 'calculating__choose-item_active');
+
+    function calcTotal() {
+        if (!gender || !height || !weight || !age || !ratio) {
+            result.textContent = `____`;
+            return;
+        }
+
+        if (gender === 'female') {
+            result.textContent = ((447.6 + (9.2 * weight) + (3.1 * height) - (4.3 * age)) * ratio).toFixed().toString();
+        } else {
+            result.textContent = ((88.36 + (13.4 * weight) + (4.8 * height) - (5.7 * age)) * ratio).toFixed().toString();
+        }
+    }
+
+    calcTotal();
+
+    function getStaticInformation(selector, activeClass) {
+        const elements = document.querySelectorAll(selector)
+
+        elements.forEach((el) => {
+            el.addEventListener('click', (e) => {
+                if (e.target.getAttribute('data-ratio')) {
+                    ratio = +e.target.getAttribute('data-ratio');
+                    localStorage.setItem('ratio', ratio);
+                } else {
+                    gender = e.target.getAttribute('id');
+                    localStorage.setItem('gender', gender);
+                }
+
+                elements.forEach(elem => {
+                    elem.classList.remove(activeClass)
+                });
+                e.target.classList.add(activeClass);
+
+                calcTotal();
+            })
+        })
+    }
+
+    getStaticInformation('#gender div', 'calculating__choose-item_active')
+    getStaticInformation('.calculating__choose_big div', 'calculating__choose-item_active')
+
+    function getDynamicInformation(selector) {
+        const input = document.querySelector(selector);
+        input.addEventListener('input', () => {
+            if (input.value.match(/\D/ig)) {
+                input.style.cssText = `
+                    border: 1px solid red;
+                    transition: 0.3s;
+                `;
+            } else {
+                input.style.cssText = `
+                    border: 1px solid transparent;
+                    transition: 0.5s;
+                `;
+            }
+            switch (input.getAttribute('id')) {
+                case 'height':
+                    height = +input.value;
+                    break;
+                case 'weight':
+                    weight = +input.value;
+                    break;
+                case 'age':
+                    age = +input.value
+            }
+
+            calcTotal();
+
+        });
+    }
+
+    getDynamicInformation('#height');
+    getDynamicInformation('#weight');
+    getDynamicInformation('#age');
 });

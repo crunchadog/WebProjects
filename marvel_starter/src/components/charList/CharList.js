@@ -1,150 +1,101 @@
 import './charList.scss';
-import MarvelServices from "../../services/MarvelServices";
-import React from 'react';
-import {Component} from "react";
+import useMarvelServices from "../../services/MarvelServices";
+import React, {createRef} from "react";
 import ErrorMessage from "../errorMessage/ErrorMessage";
 import Spinner from "../spinner/Spinner";
 import PropTypes from "prop-types";
+import useInfiniteList from "../../hooks/useLists";
+import {CSSTransition, TransitionGroup} from "react-transition-group";
 
-class CharList extends Component {
-    constructor(props) {
-        super(props);
+const setContent = (process, Component, newItemLoading) => {
+    switch (process) {
+        case 'waiting':
+            return <Spinner/>;
+        case 'loading':
+            return newItemLoading ? <Component/> : <Spinner/>;
+        case 'confirmed':
+            return <Component/>
+        case 'error':
+            return <ErrorMessage/>;
+        default:
+            throw new Error(`Unknown process state: ${process}`);
     }
+}
 
-    state = {
-        charList: [],
-        loading: true,
-        error: false,
-        newItemLoading: false,
-        offset: 0,
-        charEnded: false,
-    }
+const CharList = ({onCharSelected}) => {
+    const {getAllCharacters, process, setProcess} = useMarvelServices();
 
-    onError = () => {
-        this.setState({
-            loading: false,
-            error: true,
-        })
-    }
+    const {items: charList, newItemLoading, ended: charEnded, loadMore} = useInfiniteList({
+        request: getAllCharacters,
+        limit: 6,
+        setProcess
+    });
 
-    marvelService = new MarvelServices();
 
-    componentDidMount() {
-        this.onRequest();
-        console.log(this.itemsRef)
-        window.addEventListener("scroll", this.onScroll);
-    }
+    const focusOnItem = ref => {
+        ref.current.classList.add("char__item_selected");
+        ref.current.focus();
+    };
 
-    componentWillUnmount() {
-        window.removeEventListener("scroll", this.onScroll);
-    }
+    const blurOnItem = ref => {
+        ref.current.classList.remove('char__item_selected')
+    };
 
-    onRequest = (offset) => {
-        this.onCharListLoading();
-        this.marvelService
-            .getAllCharacters(offset)
-            .then(this.onCharListLoaded)
-            .catch(this.onError);
-    }
-
-    onScroll = () => {
-        const {newItemLoading, charEnded, offset} = this.state;
-
-        if (newItemLoading || charEnded) return;
-
-        const scrollHeight = document.documentElement.scrollHeight;
-        const scrollTop = document.documentElement.scrollTop;
-        const clientHeight = document.documentElement.clientHeight;
-
-        if (scrollHeight - (scrollTop + clientHeight) < 10) {
-            this.onRequest(offset);
-        }
-    }
-
-    onCharListLoading = () => {
-        this.setState({
-            newItemLoading: true,
-        })
-    }
-
-    onCharListLoaded = (newCharList) => {
-        let ended = false;
-
-        if (newCharList.length < 6) {
-            ended = true;
-        }
-
-        this.setState(({charList, offset}) => ({
-            charList: [...charList, ...newCharList],
-            loading: false,
-            newItemLoading: false,
-            offset: offset + 6,
-            charEnded: ended,
-        }))
-    }
-
-    itemsRef = [];
-
-    setRef = (ref) => {
-        this.itemsRef.push(ref);
-    }
-
-    focusOnId = (id) => {
-        this.itemsRef.forEach((item) => item.classList.remove('char__item_selected'));
-        this.itemsRef[id].classList.add('char__item_selected');
-        this.itemsRef[id].focus();
-    }
-
-    renderItems(arr) {
+    function renderItems(arr) {
         let items = arr.map((item, i) => {
             if (item.thumbnail === "https://www.wallpaperflare.com/static/264/707/824/iron-man-the-avengers-robert-downey-junior-tony-wallpaper.jpg") {
                 item.thumbnail = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSc2wiineb8zQjtxS3cWzCRV2PkZnSwWqsqjwL63ZKatXbXRHbL3xNcwQ7aGR_Sbp6mKX2BMa_belgNuNQDbLT7n4mZPRm9wf3UIu6RPQ&s=10';
             }
+
+            const itemRef = createRef(null)
+
             return (
-                <li className="char__item"
+                <CSSTransition
                     key={item.id}
-                    ref={this.setRef}
-                    onClick={() => {
-                        this.props.onCharSelected(item.id);
-                        this.focusOnId(i)
-                    }}>
-                    <img src={item.thumbnail} alt={item.name}/>
-                    <div className="char__name">{item.name}</div>
-                </li>
+                    in={true}
+                    timeout={500}
+                    classNames={'char__item'}
+                    nodeRef={itemRef}>
+                    <li className="char__item"
+                        key={item.id}
+                        ref={itemRef}
+                        tabIndex={0}
+                        onClick={() => {
+                            onCharSelected(item.id);
+                            focusOnItem(itemRef)
+                        }}
+                        onBlur={() => blurOnItem(itemRef)}>
+                        <img src={item.thumbnail} alt={item.name}/>
+                        <div className="char__name">{item.name}</div>
+                    </li>
+                </CSSTransition>
             )
         });
 
         return (
             <ul className="char__grid">
-                {items}
+                <TransitionGroup component={null}>
+                    {items}
+                </TransitionGroup>
             </ul>
         )
     }
 
-    render() {
-        const {charList, loading, error, newItemLoading, offset, charEnded} = this.state;
-        const items = this.renderItems(charList);
-        const isErrorMessage = error ? <ErrorMessage/> : null;
-        const isLoadingScreen = loading ? <Spinner/> : null;
-        const isValid = !(error || loading) ? items : null;
-        return (
-            <div className="char__list">
-                {isErrorMessage}
-                {isLoadingScreen}
-                {isValid}
-                {!charEnded &&
-                    <button
-                        className="button button__main button__long"
-                        disabled={newItemLoading}
-                        // style={{
-                        //     'display': charEnded ? 'none' : 'block'
-                        // }}
-                        onClick={() => this.onRequest(offset)}>
-                        <div className="inner">load more</div>
-                    </button>}
-            </div>
-        )
-    }
+    return (
+        <div className="char__list">
+            {setContent(process,() => renderItems(charList), newItemLoading)}
+            {!charEnded &&
+                <button
+                    className="button button__main button__long"
+                    disabled={newItemLoading}
+                    // style={{
+                    //     'display': charEnded ? 'none' : 'block'
+                    // }}
+                    onClick={() => loadMore(false)}>
+                    <div className="inner">load more</div>
+                </button>}
+        </div>
+    )
 }
 
 CharList.propTypes = {
@@ -152,3 +103,4 @@ CharList.propTypes = {
 }
 
 export default CharList;
+

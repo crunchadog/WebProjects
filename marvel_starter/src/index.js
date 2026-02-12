@@ -1,17 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/App';
-import MarvelServices from "./services/MarvelServices";
 import './style/style.scss'
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-// const marvelServices = new MarvelServices();
-// marvelServices.getAllCharacters()
-//     .then(res => console.log(res));
+import {HelmetProvider} from 'react-helmet-async'
 
-// res.data.results.forEach(item => console.log(item.name))
+const root = ReactDOM.createRoot(document.getElementById('root'));
+
 root.render(
-    // <React.StrictMode>
-        <App />
-    // </React.StrictMode>
+    <React.StrictMode>
+        <HelmetProvider>
+            <App/>
+        </HelmetProvider>
+    </React.StrictMode>
 );

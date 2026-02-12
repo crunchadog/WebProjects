@@ -1,22 +1,15 @@
-import {Component} from "react";
-import MarvelServices from "../../services/MarvelServices";
-import Spinner from "../spinner/Spinner";
+import {useCallback, useEffect, useState} from "react";
+import useMarvelServices from "../../services/MarvelServices";
 
 import './randomChar.scss';
 import mjolnir from '../../resources/img/mjolnir.png';
-import ErrorMessage from "../errorMessage/ErrorMessage";
+import setContent from '../../utils/setContent'
 
+const RandomChar = () => {
+    const [char, setChar] = useState({});
+    const {loading, getCharacterId, clearError, process, setProcess} = useMarvelServices();
 
-class RandomChar extends Component {
-    state = {
-        char: {},
-        loading: true,
-        error: false,
-    }
-
-    marvelServices = new MarvelServices();
-
-    validateDescr = ({name, description}) => {
+    const validateDescr = ({name, description}) => {
         if (!description) {
             return `Данных об персонаже ${name} нет.`
         }
@@ -28,80 +21,57 @@ class RandomChar extends Component {
         return description
     }
 
-    onError = () => {
-        this.setState({
-            loading: false,
-            error: true,
-        })
-    }
 
-    onCharLoaded = (char) => {
-        char.description = this.validateDescr(char);
-        this.setState({
-            char,
-            loading: false
+    const onCharLoaded = useCallback((char) => {
+        setChar({
+            ...char,
+            description: validateDescr(char),
         });
-    }
+    }, []);
 
-    onCharLoading = () => {
-        this.setState({
-            loading: true,
-        })
-    }
+    const updateChar = useCallback(() => {
+        clearError();
+        const id = Math.floor(Math.random() * 19) + 1;
+        getCharacterId(id)
+            .then(onCharLoaded)
+            .then(() => setProcess('confirmed'))
 
-    updateChar = () => {
-        const id = Math.floor(Math.random() * 20);
-        this.onCharLoading();
-        this.marvelServices
-            .getCharacterId(id)
-            .then(this.onCharLoaded)
-            .catch(this.onError)
+    }, [onCharLoaded, getCharacterId, clearError, setProcess])
 
-    }
+    useEffect(() => {
+        updateChar();
+        let timer = setInterval(updateChar, 60000);
+        return () => {
+            clearInterval(timer);
+        }
+    }, [updateChar]);
 
-    componentDidMount() {
-        this.updateChar();
-        // this.timerId = setInterval(this.updateChar, 30000);
-    }
-
-    componentWillUnmount() {
-        // clearInterval(this.timerId);
-    }
-
-    render() {
-        const {char, loading, error} = this.state;
-        const errorMessage = error ? <ErrorMessage/> : null;
-        const loadingMessage = loading ? <Spinner/> : null;
-        const content = !(error || loading) ? <View char={char}/> : null;
-        return (
-            <div className="randomchar">
-                {errorMessage}
-                {loadingMessage}
-                {content}
-                <div className="randomchar__static">
-                    <p className="randomchar__title">
-                        Random character for today!<br/>
-                        Do you want to get to know him better?
-                    </p>
-                    <p className="randomchar__title">
-                        Or choose another one
-                    </p>
-                    <button className="button button__main"
-                            disabled={loading}
-                            onClick={this.updateChar}>
-                        <div className="inner">try it
-                        </div>
-                    </button>
-                    <img src={mjolnir} alt="mjolnir" className="randomchar__decoration"/>
-                </div>
+    return (
+        <div className="randomchar">
+            {setContent(process, char, View)}
+            <div className="randomchar__static">
+                <p className="randomchar__title">
+                    Random character for today!<br/>
+                    Do you want to get to know him better?
+                </p>
+                <p className="randomchar__title">
+                    Or choose another one
+                </p>
+                <button className="button button__main"
+                        disabled={loading}
+                        onClick={updateChar}>
+                    <div className="inner">try it
+                    </div>
+                </button>
+                <img src={mjolnir} alt="mjolnir" className="randomchar__decoration"/>
             </div>
-        )
-    }
+        </div>
+    )
 }
 
-const View = ({char}) => {
-    const {name, homepage, wiki, description} = char;
-    let {thumbnail} = char;
+const View = ({data}) => {
+    const {name, homepage, wiki, description} = data;
+    let {thumbnail} = data;
     if (thumbnail === "https://www.wallpaperflare" +
         ".com/static/264/707/824/iron-man-the-avengers-robert-downey-junior-tony-wallpaper.jpg") {
         thumbnail = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSc2wiineb8zQjtxS3cWzCRV2PkZnSwWqsqjwL63ZKatXbXRHbL3xNcwQ7aGR_Sbp6mKX2BMa_belgNuNQDbLT7n4mZPRm9wf3UIu6RPQ&s=10';

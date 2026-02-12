@@ -63,6 +63,7 @@ input::-webkit-inner-spin-button {
 main {
     margin-top: 50px;
     position: relative;
+    overflow-anchor: none;
 }
 
 .pulse {

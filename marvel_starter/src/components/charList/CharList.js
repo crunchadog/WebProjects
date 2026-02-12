@@ -1,6 +1,6 @@
 import './charList.scss';
 import useMarvelServices from "../../services/MarvelServices";
-import React, {createRef} from "react";
+import React, {createRef, useMemo} from "react";
 import ErrorMessage from "../errorMessage/ErrorMessage";
 import Spinner from "../spinner/Spinner";
 import PropTypes from "prop-types";
@@ -64,6 +64,12 @@ const CharList = ({onCharSelected}) => {
                             onCharSelected(item.id);
                             focusOnItem(itemRef)
                         }}
+                        onKeyDown={(e) => {
+                            if (e.key === ' ' || e.key === "Enter") {
+                                onCharSelected(item.id);
+                                focusOnItem(i);
+                            }
+                        }}>
                         onBlur={() => blurOnItem(itemRef)}>
                         <img src={item.thumbnail} alt={item.name}/>
                         <div className="char__name">{item.name}</div>
@@ -81,9 +87,14 @@ const CharList = ({onCharSelected}) => {
         )
     }
 
+    const elements = useMemo(() => {
+        return setContent(process, () => renderItems(charList), newItemLoading)
+        //eslint-disable-next-line
+    }, [process])
+
     return (
         <div className="char__list">
-            {setContent(process,() => renderItems(charList), newItemLoading)}
+            {elements}
             {!charEnded &&
                 <button
                     className="button button__main button__long"

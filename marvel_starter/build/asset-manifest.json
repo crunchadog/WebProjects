@@ -1,10 +1,10 @@
 {
   "files": {
     "main.css": "/static/css/main.dae2b6af.css",
-    "main.js": "/static/js/main.8151b6d2.js",
+    "main.js": "/static/js/main.1ecd361f.js",
     "static/js/880.bd40bb8e.chunk.js": "/static/js/880.bd40bb8e.chunk.js",
     "static/css/462.4a90429f.chunk.css": "/static/css/462.4a90429f.chunk.css",
-    "static/js/462.259fd55c.chunk.js": "/static/js/462.259fd55c.chunk.js",
+    "static/js/462.2e0b668c.chunk.js": "/static/js/462.2e0b668c.chunk.js",
     "static/css/489.29159001.chunk.css": "/static/css/489.29159001.chunk.css",
     "static/js/489.80c27dcb.chunk.js": "/static/js/489.80c27dcb.chunk.js",
     "static/css/297.39d90c27.chunk.css": "/static/css/297.39d90c27.chunk.css",
@@ -21,10 +21,10 @@
     "static/media/Avengers_logo.png": "/static/media/Avengers_logo.9eaf219344d83362e830.png",
     "index.html": "/index.html",
     "main.dae2b6af.css.map": "/static/css/main.dae2b6af.css.map",
-    "main.8151b6d2.js.map": "/static/js/main.8151b6d2.js.map",
+    "main.1ecd361f.js.map": "/static/js/main.1ecd361f.js.map",
     "880.bd40bb8e.chunk.js.map": "/static/js/880.bd40bb8e.chunk.js.map",
     "462.4a90429f.chunk.css.map": "/static/css/462.4a90429f.chunk.css.map",
-    "462.259fd55c.chunk.js.map": "/static/js/462.259fd55c.chunk.js.map",
+    "462.2e0b668c.chunk.js.map": "/static/js/462.2e0b668c.chunk.js.map",
     "489.29159001.chunk.css.map": "/static/css/489.29159001.chunk.css.map",
     "489.80c27dcb.chunk.js.map": "/static/js/489.80c27dcb.chunk.js.map",
     "297.39d90c27.chunk.css.map": "/static/css/297.39d90c27.chunk.css.map",
@@ -37,6 +37,6 @@
   },
   "entrypoints": [
     "static/css/main.dae2b6af.css",
-    "static/js/main.8151b6d2.js"
+    "static/js/main.1ecd361f.js"
   ]
 }

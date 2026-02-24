@@ -1,0 +1,529 @@
+{
+  "heroes": [
+    {
+      "id": 1,
+      "name": "Первый герой",
+      "description": "Первый герой в рейтинге!",
+      "element": "fire"
+    },
+    {
+      "id": 2,
+      "name": "Неизвестный герой",
+      "description": "Скрывающийся в тени",
+      "element": "wind"
+    },
+    {
+      "id": 3,
+      "name": "Морской герой",
+      "description": "Как аквамен, но не из DC",
+      "element": "water"
+    },
+    {
+      "id": 4,
+      "name": "Каменный Страж",
+      "description": "Непоколебимая скала на пути врага",
+      "element": "earth"
+    },
+    {
+      "id": 5,
+      "name": "Пепельный Феникс",
+      "description": "Возрождается из каждой ошибки",
+      "element": "fire"
+    },
+    {
+      "id": 6,
+      "name": "Танцующая с Ветром",
+      "description": "Её клинки быстрее звука",
+      "element": "wind"
+    },
+    {
+      "id": 7,
+      "name": "Глубинный Ужас",
+      "description": "Обитатель Марианской впадины",
+      "element": "water"
+    },
+    {
+      "id": 8,
+      "name": "Мастер Глины",
+      "description": "Создает армию из грязи и палок",
+      "element": "earth"
+    },
+    {
+      "id": 9,
+      "name": "Солнечный Луч",
+      "description": "Слепит врагов своей харизмой",
+      "element": "fire"
+    },
+    {
+      "id": 10,
+      "name": "Облачный Скиталец",
+      "description": "Живет на высоте 10 000 метров",
+      "element": "wind"
+    },
+    {
+      "id": 11,
+      "name": "Ледяная Дева",
+      "description": "Холодна снаружи, еще холоднее внутри",
+      "element": "water"
+    },
+    {
+      "id": 12,
+      "name": "Песчаный Демон",
+      "description": "Рассыпается при первой возможности",
+      "element": "earth"
+    },
+    {
+      "id": 13,
+      "name": "Магматический Лорд",
+      "description": "Обожает горячие ванны в вулкане",
+      "element": "fire"
+    },
+    {
+      "id": 14,
+      "name": "Ураганный Волк",
+      "description": "Приходит вместе с бурей",
+      "element": "wind"
+    },
+    {
+      "id": 15,
+      "name": "Приливный Монах",
+      "description": "Контролирует лунные циклы",
+      "element": "water"
+    },
+    {
+      "id": 16,
+      "name": "Стальной Голем",
+      "description": "Продукт забытых технологий",
+      "element": "earth"
+    },
+    {
+      "id": 17,
+      "name": "Искристый Лис",
+      "description": "Маленький, но очень кусачий",
+      "element": "fire"
+    },
+    {
+      "id": 18,
+      "name": "Зефирный Дух",
+      "description": "Легкий как пушинка, бьет как молот",
+      "element": "wind"
+    },
+    {
+      "id": 20,
+      "name": "Корневой Мудрец",
+      "description": "Слышит шепот деревьев",
+      "element": "earth"
+    },
+    {
+      "id": 22,
+      "name": "Грозовой Сокол",
+      "description": "Приносит молнию на своих крыльях",
+      "element": "wind"
+    },
+    {
+      "id": 24,
+      "name": "Горный Король",
+      "description": "Правит подземельями уже тысячу лет",
+      "element": "earth"
+    },
+    {
+      "id": 25,
+      "name": "Ифрит Разрушитель",
+      "description": "Сжигает всё, до чего дотрагивается",
+      "element": "fire"
+    },
+    {
+      "id": 26,
+      "name": "Стриж",
+      "description": "Самый быстрый курьер в королевстве",
+      "element": "wind"
+    },
+    {
+      "id": 28,
+      "name": "Кристаллическая Леди",
+      "description": "Хрупкая на вид, острая как алмаз",
+      "element": "earth"
+    },
+    {
+      "id": 29,
+      "name": "Кузнец Судьбы",
+      "description": "Ковал мечи для богов",
+      "element": "fire"
+    },
+    {
+      "id": 30,
+      "name": "Эфирный Пилот",
+      "description": "Управляет кораблем из чистого воздуха",
+      "element": "wind"
+    },
+    {
+      "id": 31,
+      "name": "Гейзер",
+      "description": "Вспыльчивый и очень мокрый",
+      "element": "water"
+    },
+    {
+      "id": 32,
+      "name": "Терракотовый Воин",
+      "description": "Один из тысячи в великой армии",
+      "element": "earth"
+    },
+    {
+      "id": 33,
+      "name": "Дракон Пустоши",
+      "description": "Старый ящер, любящий золото",
+      "element": "fire"
+    },
+    {
+      "id": 34,
+      "name": "Порыв Ветра",
+      "description": "Появляется и исчезает мгновенно",
+      "element": "wind"
+    },
+    {
+      "id": 35,
+      "name": "Жемчужная Дива",
+      "description": "Ослепляет красотой и магией",
+      "element": "water"
+    },
+    {
+      "id": 36,
+      "name": "Тролль-Философ",
+      "description": "Размышляет о смысле камня",
+      "element": "earth"
+    },
+    {
+      "id": 37,
+      "name": "Угольный Глаз",
+      "description": "Видит сквозь дым и пламя",
+      "element": "fire"
+    },
+    {
+      "id": 38,
+      "name": "Стрекоза",
+      "description": "Мастер воздушного боя",
+      "element": "wind"
+    },
+    {
+      "id": 41,
+      "name": "Прометей",
+      "description": "Тот самый, что украл огонь",
+      "element": "fire"
+    },
+    {
+      "id": 43,
+      "name": "Сирена",
+      "description": "Песни, которые заставляют прыгать за борт",
+      "element": "water"
+    },
+    {
+      "id": 44,
+      "name": "Обсидиановый Клинок",
+      "description": "Острый и темный, как сама ночь",
+      "element": "earth"
+    },
+    {
+      "id": 45,
+      "name": "Саламандра",
+      "description": "Маленький дух большого костра",
+      "element": "fire"
+    },
+    {
+      "id": 46,
+      "name": "Небесный Атлет",
+      "description": "Прыгает выше облаков",
+      "element": "wind"
+    },
+    {
+      "id": 47,
+      "name": "Ловца Капель",
+      "description": "Может остановить дождь",
+      "element": "water"
+    },
+    {
+      "id": 48,
+      "name": "Гранитный Кулак",
+      "description": "Его рукопожатие — плохая идея",
+      "element": "earth"
+    },
+    {
+      "id": 50,
+      "name": "Паритель",
+      "description": "Игнорирует гравитацию по четвергам",
+      "element": "wind"
+    },
+    {
+      "id": 52,
+      "name": "Песчаная Буря",
+      "description": "Заметает следы истории",
+      "element": "earth"
+    },
+    {
+      "id": 54,
+      "name": "Сокол Тысячелетия",
+      "description": "Просто быстрая птица",
+      "element": "wind"
+    },
+    {
+      "id": 55,
+      "name": "Тритон",
+      "description": "Морской кавалерист",
+      "element": "water"
+    },
+    {
+      "id": 56,
+      "name": "Мраморная Статуя",
+      "description": "Оживший шедевр античности",
+      "element": "earth"
+    },
+    {
+      "id": 57,
+      "name": "Пиромант",
+      "description": "Играет со спичками профессионально",
+      "element": "fire"
+    },
+    {
+      "id": 59,
+      "name": "Лотос",
+      "description": "Чистота посреди болота",
+      "element": "water"
+    },
+    {
+      "id": 60,
+      "name": "Драгоценный Гном",
+      "description": "Знает цену каждому камню",
+      "element": "earth"
+    },
+    {
+      "id": 61,
+      "name": "Красный Барон",
+      "description": "Ас воздушных сражений на драконе",
+      "element": "fire"
+    },
+    {
+      "id": 62,
+      "name": "Эол",
+      "description": "Хранитель мешка с ветрами",
+      "element": "wind"
+    },
+    {
+      "id": 63,
+      "name": "Медуза Горгона",
+      "description": "Взгляд, от которого каменеют (буквально)",
+      "element": "water"
+    },
+    {
+      "id": 65,
+      "name": "Поджигатель",
+      "description": "Не спрашивайте, откуда у него канистра",
+      "element": "fire"
+    },
+    {
+      "id": 66,
+      "name": "Сильфида",
+      "description": "Прозрачный дух легкого бриза",
+      "element": "wind"
+    },
+    {
+      "id": 67,
+      "name": "Посейдон",
+      "description": "Босс качалки в океане",
+      "element": "water"
+    },
+    {
+      "id": 68,
+      "name": "Голем из Чернозема",
+      "description": "Любит фермерство и разрушение",
+      "element": "earth"
+    },
+    {
+      "id": 69,
+      "name": "Солнцеликий",
+      "description": "Всегда в центре внимания",
+      "element": "fire"
+    },
+    {
+      "id": 70,
+      "name": "Скайуокер",
+      "description": "Ходит по невидимым тропам",
+      "element": "wind"
+    },
+    {
+      "id": 71,
+      "name": "Нереида",
+      "description": "Дочь морского царя",
+      "element": "water"
+    },
+    {
+      "id": 73,
+      "name": "Метеор",
+      "description": "Падающая звезда с плохим характером",
+      "element": "fire"
+    },
+    {
+      "id": 74,
+      "name": "Тайфун",
+      "description": "Его гнев разрушает города",
+      "element": "wind"
+    },
+    {
+      "id": 75,
+      "name": "Пузырек",
+      "description": "Маленький, но очень гидродинамичный",
+      "element": "water"
+    },
+    {
+      "id": 76,
+      "name": "Железное Дерево",
+      "description": "Растет медленно, бьет больно",
+      "element": "earth"
+    },
+    {
+      "id": 77,
+      "name": "Искромет",
+      "description": "Мастер фейерверков",
+      "element": "fire"
+    },
+    {
+      "id": 78,
+      "name": "Шепот Ветра",
+      "description": "Рассказывает секреты врагов",
+      "element": "wind"
+    },
+    {
+      "id": 79,
+      "name": "Глубинная Рыба",
+      "description": "Светит фонариком во тьме",
+      "element": "water"
+    },
+    {
+      "id": 80,
+      "name": "Кирпичный Мастер",
+      "description": "Построит стену за 5 секунд",
+      "element": "earth"
+    },
+    {
+      "id": 81,
+      "name": "Лавовый Слайм",
+      "description": "Липкий и очень горячий",
+      "element": "fire"
+    },
+    {
+      "id": 82,
+      "name": "Смерч",
+      "description": "Танцует в эпицентре бури",
+      "element": "wind"
+    },
+    {
+      "id": 83,
+      "name": "Капитан Крюк",
+      "description": "Боится только крокодилов",
+      "element": "water"
+    },
+    {
+      "id": 84,
+      "name": "Крот-Шпион",
+      "description": "Видит всё из-под земли",
+      "element": "earth"
+    },
+    {
+      "id": 85,
+      "name": "Драконий Всадник",
+      "description": "Связан узами крови с пламенем",
+      "element": "fire"
+    },
+    {
+      "id": 87,
+      "name": "Морской Огурчик",
+      "description": "Самый недооцененный герой",
+      "element": "water"
+    },
+    {
+      "id": 89,
+      "name": "Уголек",
+      "description": "Остатки былого величия",
+      "element": "fire"
+    },
+    {
+      "id": 90,
+      "name": "Крылатый Кот",
+      "description": "Летает и мурлычет одновременно",
+      "element": "wind"
+    },
+    {
+      "id": 92,
+      "name": "Хранитель Оврагов",
+      "description": "Знает каждую яму в лесу",
+      "element": "earth"
+    },
+    {
+      "id": 93,
+      "name": "Огненный Лев",
+      "description": "Царь зверей в мире пламени",
+      "element": "fire"
+    },
+    {
+      "id": 95,
+      "name": "Осьминог-Пророк",
+      "description": "Предсказывает результаты матчей",
+      "element": "water"
+    },
+    {
+      "id": 96,
+      "name": "Энт-Подросток",
+      "description": "Постоянно растет и ворчит",
+      "element": "earth"
+    },
+    {
+      "id": 97,
+      "name": "Сверхновая",
+      "description": "Взрывной финал любой битвы",
+      "element": "fire"
+    },
+    {
+      "id": "2c1a0fa1-1844-4242-876c-e5ac79235294",
+      "name": "ГЕЙ",
+      "description": "КА",
+      "element": "fire"
+    },
+    {
+      "id": "6e0227bc-387f-4e21-93eb-d7f1d311e20c",
+      "name": "1",
+      "description": "1",
+      "element": "fire"
+    },
+    {
+      "id": "4cb444f9-3369-46f1-bd82-c82643f8f761",
+      "name": "111",
+      "description": "111",
+      "element": "fire"
+    }
+  ],
+  "filters": [
+    {
+      "name": "all",
+      "label": "Все",
+      "className": "btn-outline-dark"
+    },
+    {
+      "name": "fire",
+      "label": "Огонь",
+      "className": "btn-danger"
+    },
+    {
+      "name": "water",
+      "label": "Вода",
+      "className": "btn-primary"
+    },
+    {
+      "name": "wind",
+      "label": "Ветер",
+      "className": "btn-success"
+    },
+    {
+      "name": "earth",
+      "label": "Земля",
+      "className": "btn-secondary"
+    }
+  ]
+}
